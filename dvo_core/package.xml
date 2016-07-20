@@ -13,11 +13,11 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <build_depend>cmake_modules</build_depend>
+  <build_depend>libopencv-dev</build_depend>
   <build_depend>libtbb-dev</build_depend>
 
   <!--
   <build_depend>libpcl-all-dev</build_depend>
-  <build_depend>libopencv-dev</build_depend>
 -->
   <!--build_depend>sophus</build_depend-->
 

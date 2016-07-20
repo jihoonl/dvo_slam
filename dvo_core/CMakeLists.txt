@@ -7,8 +7,11 @@ find_package(PCL REQUIRED COMPONENTS common)
 find_package(Eigen3 REQUIRED)
 find_package(sophus REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
-find_package(OpenCV 3 REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(TBB REQUIRED)
+
+find_package(VTK REQUIRED) # Visualization dependency
+
 
 catkin_package(
   INCLUDE_DIRS include
@@ -16,15 +19,19 @@ catkin_package(
   DEPENDS OpenCV PCL
 )
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3 -msse4 -ftree-vectorize")
+add_definitions(-std=gnu++0x)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3 -msse4 -ftree-vectorize")
+
 
 include_directories(
   include
   ${sophus_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
+  ${VTK_INCLUDE_DIRS}
 )
 
 add_library(dvo_core
@@ -51,14 +58,16 @@ target_link_libraries(dvo_core
     ${Boost_LIBRARIES}
     ${TBB_LIBRARIES}
     ${PCL_LIBRARIES}
+    ${OpenCV_LIBS}
 )
 
-#add_library(dvo_visualization
-#    src/visualization/async_point_cloud_builder.cpp
-#    src/visualization/point_cloud_aggregator.cpp
-#    src/visualization/pcl_camera_trajetory_visualizer.cpp
-#)
+add_library(dvo_visualization
+    src/visualization/async_point_cloud_builder.cpp
+    src/visualization/point_cloud_aggregator.cpp
+    src/visualization/pcl_camera_trajetory_visualizer.cpp
+)
 
-#target_link_libraries(dvo_visualization
-#  dvo_core
-#)
+target_link_libraries(dvo_visualization
+  dvo_core
+  ${PCL_LIBRARIES}
+)
