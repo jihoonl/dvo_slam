@@ -2,15 +2,12 @@ cmake_minimum_required(VERSION 2.8.3)
 
 project(dvo_benchmark)
 
-LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules")
-
-find_package(catkin REQUIRED COMPONENTS roscpp dvo_core dvo_ros dvo_slam)
-find_package(cmake_modules REQUIRED)
+find_package(catkin REQUIRED COMPONENTS cmake_modules roscpp dvo_core dvo_ros dvo_slam)
 find_package(Eigen3 REQUIRED)
-find_package(G2O REQUIRED)
-find_package(OpenCV 2.4.8 REQUIRED)
+#find_package(OpenCV REQUIRED)
+#find_package(G2O REQUIRED)
 
-#LIST(APPEND CMAKE_CXX_FLAGS "-std=c++11")
+add_definitions(-std=c++11)
 
 catkin_package(
   INCLUDE_DIRS include
@@ -18,10 +15,9 @@ catkin_package(
 )
 
 include_directories(
-  "include"
+  include
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
-  ${G2O_INCLUDE_DIR}
 )
 
 

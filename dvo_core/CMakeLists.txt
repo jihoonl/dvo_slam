@@ -15,7 +15,7 @@ find_package(VTK REQUIRED) # Visualization dependency
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES dvo_core #dvo_visualization
+  LIBRARIES dvo_core dvo_visualization
   DEPENDS OpenCV PCL
 )
 
