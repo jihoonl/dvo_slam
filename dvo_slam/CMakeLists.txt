@@ -2,13 +2,21 @@ cmake_minimum_required(VERSION 2.8.3)
 
 project(dvo_slam)
 
+LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules")
+
 find_package(catkin REQUIRED COMPONENTS
   cmake_modules roscpp dynamic_reconfigure
   sensor_msgs image_transport message_filters
   cv_bridge visualization_msgs interactive_markers
   dvo_core dvo_ros
 )
+find_package(G2O REQUIRED)
+find_package(SuiteSparse REQUIRED)
+
 find_package(Eigen3 REQUIRED)
+
+#find_package(SuiteSparse REQUIRED)
+find_package(TBB REQUIRED)
 
 add_definitions(-std=c++11)
 
@@ -61,6 +69,7 @@ target_link_libraries(${PROJECT_NAME}
   ${G2O_TYPES_SLAM3D}
   ${catkin_LIBRARIES}
 )
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 
 add_executable(camera_keyframe_tracker
   src/camera_keyframe_tracker_node.cpp
@@ -70,4 +79,4 @@ target_link_libraries(camera_keyframe_tracker
   ${PROJECT_NAME}
 )
 
-add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+add_dependencies(camera_keyframe_tracker ${PROJECT_NAME})
