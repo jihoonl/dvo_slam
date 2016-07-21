@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 2.8.3)
 
 project(dvo_slam)
 
-#LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules")
-
 find_package(catkin REQUIRED COMPONENTS
   cmake_modules roscpp dynamic_reconfigure
   sensor_msgs image_transport message_filters
@@ -11,8 +9,6 @@ find_package(catkin REQUIRED COMPONENTS
   dvo_core dvo_ros
 )
 find_package(Eigen3 REQUIRED)
-#find_package(SuiteSparse REQUIRED)
-#find_package(sophus REQUIRED)
 
 add_definitions(-std=c++11)
 
